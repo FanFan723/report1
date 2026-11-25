@@ -1,0 +1,37 @@
+/* motion.css — 全站滚动动效公共样式（配合 assets/motion.js）
+   从单页样张提炼：滚动联动 + 惯性滚动 + 可关闭开关，不含监视器 HUD */
+html { scroll-behavior: auto !important; }
+body { overflow-x: hidden; }
+
+/* 联动元素由 motion.js 每帧写 inline style，禁用 transition 才能跟手 */
+[data-m] { will-change: transform, opacity; }
+[data-m], [data-m].rv { transition: none !important; }
+/* 兜底：即使动效脚本没跑，带 .rv 的联动元素也必须可见 */
+html.js [data-m].rv { opacity: 1; transform: none; }
+
+/* 逐行渐隐的正文行 */
+.ln { display: block; }
+
+/* 右下角低调的动效开关（正式版替代样张监视器） */
+.motion-toggle {
+  position: fixed; right: 16px; bottom: 16px; z-index: 150;
+  background: rgba(6, 10, 18, 0.72); border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px; padding: 8px 14px; color: rgba(233, 239, 245, 0.78);
+  font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  cursor: pointer; backdrop-filter: blur(8px);
+  transition: color 0.25s, border-color 0.25s;
+}
+.motion-toggle:hover { border-color: rgba(255, 255, 255, 0.5); color: #fff; }
+.motion-toggle b { color: #9fc0ee; font-weight: 600; }
+.motion-toggle[aria-pressed="false"] b { color: #e0a09a; }
+
+/* 关闭动效：所有联动元素归位到静态可见状态，背景渐变停在当前颜色帧 */
+body.motion-off [data-m] { opacity: 1 !important; transform: none !important; }
+body.motion-off .sea-base, body.motion-off .sea-base-2 { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sea-base, .sea-base-2 { animation: none; }
+}
+@media (max-width: 600px) {
+  .motion-toggle { right: 10px; bottom: 10px; padding: 7px 11px; font-size: 9px; }
+}

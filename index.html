@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Wang Ke 王柯 — Environmental Design</title>
+<meta name="description" content="王柯 / Wang Ke · 环境设计作品集 — 竞赛展板、白模渲染与视觉设计">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/motion.css">
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+
+<section class="sheet hero" id="home-hero">
+  <!-- 动态深海光晕：两层极慢色相渐变 + canvas 呼吸光团（全程深蓝，无绿） -->
+  <div class="sea-base"></div>
+  <div class="sea-base sea-base-2"></div>
+  <canvas class="sea-canvas" id="sea-canvas"></canvas>
+  <div class="sea-vignette"></div>
+
+  <!-- 顶部「两侧小导航 + 中央 WK 半椭圆缺口」由 app.js 统一注入，照抄参考站 -->
+
+  <!-- 中部：一条发丝线 + 两侧全大写小字（首屏退场动效作用对象） -->
+  <div class="hero-inner" data-m="hero">
+    <div class="hero-center-line">
+      <span>Wang Ke&nbsp; / &nbsp;王柯</span>
+      <span>Environmental Design&nbsp; <i>▌</i>&nbsp; China</span>
+    </div>
+  </div>
+
+  <!-- 底部：三行小字 + 实时时间（参考站 ©2025 LONDON, UK 上午11:55） -->
+  <div class="hero-foot" data-m="hero">
+    <p>Environmental design undergraduate · competition boards, clay renders &amp; visual work</p>
+    <p>本科环境设计在读 · 竞赛展板 / 白模渲染 / 视觉设计</p>
+    <small id="clock">©2026 CHINA, 下午3:37</small>
+  </div>
+</section>
+
+<section class="sheet light">
+  <div class="sheet-inner">
+    <div class="intro-grid">
+      <div class="eyebrow rv">( Intro )</div>
+      <div class="quote">
+        <p class="h-lg">
+          <span class="ln" data-m="line">一名环境设计专业大四在读本科生，</span>
+          <span class="ln" data-m="line">以竞赛展板与白模渲染见长，</span>
+          <span class="ln" data-m="line">同时涉猎平面视觉与参数化建模。</span>
+          <span class="ln" data-m="line">用完整的方案表达与扎实的软件能力，</span>
+          <span class="ln" data-m="line">呈现空间设计的多种可能。</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="watermark" data-m="zoom">Wang Ke<sup> / 王柯</sup></div>
+</section>
+
+<section class="sheet light tight">
+  <div class="sheet-inner">
+    <div class="editorial">
+      <div class="col rv">
+        <div class="eyebrow">( Career &amp; Education )</div>
+        <h3>经历与方向</h3>
+        <p>从场地调研、概念推导到最终展板表达的完整方案训练；持续用白模渲染推敲体量与光影，再进入材质深化。</p>
+      </div>
+      <div class="rv">
+        <ul class="career">
+          <li>环境设计 本科在读<sup>2023 — 2027</sup></li>
+          <li>景观 / 室内外环境设计</li>
+          <li class="active">竞赛方案表达<sup>CORE</sup></li>
+          <li>参数化设计</li>
+          <li>视觉与平面</li>
+        </ul>
+      </div>
+    </div>
+    <div class="eyebrow rv" style="margin-bottom:24px">( Capabilities ) 能力版图</div>
+    <div class="mark-grid rv">
+      <span>方案设计</span><span>建模</span><span>渲染</span><span>平面</span>
+      <span>场地分析</span><span>展板排版</span><span>白模推敲</span><span>分析图表达</span>
+    </div>
+  </div>
+</section>
+
+<section class="sheet dark">
+  <div class="sheet-inner">
+    <div class="section-label rv"><h2>Selected work</h2><span class="tiny">精选作品 / 2024 — 2026</span></div>
+    <div id="featured"></div>
+    <div style="margin-top:34px"><a class="pill" href="works.html">View all work →</a></div>
+  </div>
+</section>
+
+<section class="sheet light tight" id="process">
+  <div class="sheet-inner">
+    <div class="editorial">
+      <div class="col rv">
+        <div class="eyebrow">( Process &amp; Method )</div>
+        <h3>设计流程</h3>
+        <p>从场地调研、概念推导到建模渲染与展板表达，完整覆盖环境设计的五个环节。</p>
+      </div>
+      <div class="rows rv" id="process-rows"></div>
+    </div>
+    <div class="cta-bar" data-m="cta">
+      <span>Have a project in mind? / 欢迎交流合作</span>
+      <a class="btn-dark" href="contact.html">Get in touch ⊕</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="fl">
+    <a href="index.html">Home</a><a href="works.html">Work</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  </div>
+  <span>©2026 Wang Ke · Environmental Design</span>
+  <span>1402183045@qq.com</span>
+</footer>
+
+<script src="assets/works.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/sea-glow.js"></script>
+<script src="assets/motion.js"></script>
+</body>
+</html>

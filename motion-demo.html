@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>动效样张 / Motion Demo — 王柯 Wang Ke</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/motion-demo.css">
+</head>
+<body>
+
+<!-- 1 · 首屏：深海梦幻渐变 + 顶部缺口 + 发丝线 + 实时时间 -->
+<section class="sheet hero" id="md-hero">
+  <!-- 颜色本身在极慢地持续渐变（两层不同周期叠加，永不重复） -->
+  <div class="md-sea" id="md-sea"></div>
+  <div class="md-sea md-sea-2" aria-hidden="true"></div>
+  <!-- 水下光柱 / 雾团 / 浮游微粒 / 细噪点 -->
+  <canvas class="md-glow" id="md-glow"></canvas>
+  <div class="md-vignette" aria-hidden="true"></div>
+
+  <!-- 顶部：黑色圆形缺口 + 两侧小字导航（照抄参考站首屏） -->
+  <header class="md-topbar">
+    <nav class="md-nav">
+      <a class="on" href="#md-hero">Home</a>
+      <a href="#md-works">Work</a>
+      <a href="#md-intro">About</a>
+    </nav>
+    <div class="md-notch">W&nbsp;K</div>
+    <nav class="md-nav">
+      <a href="#md-zoom">Skills</a>
+      <a href="#md-intro">Process</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- 中部：一条发丝线 + 两侧全大写小字（首屏退场动效作用对象） -->
+  <div class="md-hero-inner" data-m="hero">
+    <div class="md-center-line">
+      <span>Wang Ke&nbsp; / &nbsp;王柯</span>
+      <span>Environmental Design&nbsp; <i>▌</i>&nbsp; China</span>
+    </div>
+  </div>
+
+  <!-- 底部：三行小字 + 实时时间（照抄参考站 ©2025 LONDON, UK 上午11:55） -->
+  <div class="md-hero-foot" data-m="hero">
+    <p>Environmental design undergraduate · competition boards, clay renders &amp; visual work</p>
+    <p>本科环境设计在读 · 竞赛展板 / 白模渲染 / 视觉设计</p>
+    <small id="md-clock">©2026 CHINA, 下午2:42</small>
+  </div>
+
+  <div class="md-badge">Motion demo · 动效样张 / 01</div>
+</section>
+
+<!-- 2 · 浅色大纸：履历文字逐行渐隐 -->
+<section class="sheet light" id="md-intro">
+  <div class="sheet-inner">
+    <div class="md-lines">
+      <p class="md-line" data-m="line"><span class="num">01</span>一名环境设计专业大四在读本科生，</p>
+      <p class="md-line" data-m="line"><span class="num">02</span>以竞赛展板与白模渲染见长，</p>
+      <p class="md-line" data-m="line"><span class="num">03</span>同时涉猎平面视觉与参数化建模。</p>
+      <p class="md-line" data-m="line"><span class="num">04</span>从场地调研、概念推导到最终展板表达，</p>
+      <p class="md-line" data-m="line"><span class="num">05</span>用完整的方案逻辑与扎实的软件能力，</p>
+      <p class="md-line" data-m="line"><span class="num">06</span>呈现空间设计的多种可能。</p>
+    </div>
+  </div>
+  <div class="watermark">Wang Ke<sup> / 王柯</sup></div>
+</section>
+
+<!-- 3 · 巨幅图像缩放进入 -->
+<section class="sheet navy" id="md-zoom">
+  <div class="md-zoom-cap">
+    <div class="eyebrow light">( 01 / Scale in ) 缩放进入</div>
+    <h2>White model study</h2>
+    <p>图像随滚动由 1.9 倍缩至原尺寸</p>
+  </div>
+  <div class="md-zoom-figure" data-m="zoom">
+    <img id="md-zoom-img" alt="白模渲染占位图">
+  </div>
+</section>
+
+<!-- 4 · 深色作品区：视差 + 标题逐条点亮 -->
+<section class="sheet dark" id="md-works">
+  <div class="sheet-inner">
+    <div class="section-label"><h2>Selected work</h2><span class="tiny">精选作品 / 竞赛展板 · 白模渲染 · 海报</span></div>
+    <div class="md-cards" id="md-cards"></div>
+  </div>
+</section>
+
+<!-- 5 · 尾屏联系条上浮 -->
+<section class="sheet light tight" id="md-cta">
+  <div class="sheet-inner">
+    <div class="cta-bar" data-m="cta">
+      <span>Have a project in mind? / 欢迎交流合作</span>
+      <a class="btn-dark" href="contact.html">Get in touch ⊕</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="fl">
+    <a href="index.html">Home</a><a href="works.html">Work</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  </div>
+  <span>©2026 Wang Ke · Motion demo</span>
+  <span>1402183045@qq.com</span>
+</footer>
+
+<!-- 样张专用监视器：正式版移除 -->
+<div class="md-hud">
+  <div class="md-hud-top">
+    <button class="md-toggle" id="md-toggle" aria-pressed="true">MOTION <b>ON</b></button>
+    <span class="md-y" id="md-y">0000 px</span>
+  </div>
+  <div class="md-bars" id="md-bars"></div>
+  <div class="md-note" id="md-note">样张专用监视器 · 正式版移除</div>
+</div>
+
+<script src="assets/works.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/motion-demo.js"></script>
+</body>
+</html>

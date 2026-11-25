@@ -1,0 +1,222 @@
+/* motion-demo.css — 动效样张专用样式，仅 motion-demo.html 引用，不影响正式页面 */
+html { scroll-behavior: auto !important; }
+body { overflow-x: hidden; }
+
+/* ---------- hero：深海梦幻 · 照抄参考站首屏排版 ---------- */
+#md-hero {
+  min-height: calc(100vh - 24px);
+  background: #04101c;              /* 覆盖 style.css 的旧深蓝渐变 */
+  isolation: isolate;
+}
+.md-sea, .md-sea-2, .md-glow, .md-vignette {
+  position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
+}
+/* 第一层：深海底色 + 深蓝 / 靛蓝 / 蓝紫的多团柔光，48s 一个来回，色相持续缓慢流转
+   配色约束：全程不含青绿，只在 hue 206–258 的深蓝→靛紫区间 */
+/* 样张自带首屏导航；app.js 会注入正式站的固定缺口与 mini-nav，隐藏避免重叠 */
+body > .notch, #md-hero > .mini-nav { display: none !important; }
+
+.md-sea {
+  z-index: 0; background-repeat: no-repeat;
+  background-size: 140% 140%, 132% 132%, 138% 138%, 100% 100%;
+  background-image:
+    radial-gradient(ellipse 70% 62% at 22% 20%, rgba(24, 58, 130, 0.40), transparent 64%),
+    radial-gradient(ellipse 62% 72% at 82% 76%, rgba(48, 52, 138, 0.36), transparent 66%),
+    radial-gradient(ellipse 55% 50% at 60% 44%, rgba(26, 48, 116, 0.26), transparent 70%),
+    linear-gradient(158deg, #04101c 0%, #071a33 40%, #0a1632 70%, #030a14 100%);
+  animation: seaShift 48s ease-in-out infinite alternate;
+}
+/* 第二层：71s 周期，与第一层错拍叠加，形成「一直在变、看不出循环」的色相流动 */
+.md-sea-2 {
+  z-index: 0; mix-blend-mode: screen; opacity: 0.42;
+  background-repeat: no-repeat;
+  background-size: 150% 150%, 128% 128%;
+  background-image:
+    radial-gradient(ellipse 58% 58% at 68% 30%, rgba(28, 62, 148, 0.26), transparent 68%),
+    radial-gradient(ellipse 52% 60% at 24% 78%, rgba(38, 48, 126, 0.24), transparent 70%);
+  animation: seaShift2 71s ease-in-out infinite alternate;
+}
+/* 只做正向色相旋转：蓝→靛蓝/蓝紫，绝不往青绿方向走 */
+@keyframes seaShift {
+  0%   { filter: hue-rotate(0deg)  saturate(1.02) brightness(1.00); background-position: 0% 0%, 100% 100%, 50% 0%, 0 0; }
+  50%  { filter: hue-rotate(12deg) saturate(1.14) brightness(1.06); }
+  100% { filter: hue-rotate(22deg) saturate(1.06) brightness(1.02); background-position: 9% 7%, 87% 90%, 40% 12%, 0 0; }
+}
+@keyframes seaShift2 {
+  0%   { filter: hue-rotate(16deg) saturate(0.98); background-position: 100% 0%, 0% 100%; }
+  100% { filter: hue-rotate(0deg)  saturate(1.14); background-position: 86% 12%, 14% 84%; }
+}
+.md-glow { z-index: 1; }
+.md-vignette {
+  z-index: 2;
+  background: radial-gradient(ellipse 78% 72% at 50% 44%, transparent 34%, rgba(1, 6, 13, 0.62) 100%);
+}
+/* 关闭动效时连背景渐变也停下，但保留当前颜色帧 */
+body.motion-off .md-sea, body.motion-off .md-sea-2 { animation-play-state: paused; }
+
+/* 顶部：黑色圆形缺口 + 两侧极小混合大小写导航 */
+.md-topbar {
+  position: absolute; z-index: 6; top: 0; left: 0; right: 0; height: 48px;
+  display: flex; align-items: flex-start; justify-content: center; padding-top: 17px;
+}
+.md-nav { display: flex; align-items: center; gap: clamp(20px, 2.6vw, 40px); height: 20px; }
+.md-nav a {
+  font-size: 10.5px; font-weight: 500; letter-spacing: 0.13em;
+  color: rgba(226, 236, 244, 0.42); transition: color 0.3s;
+}
+.md-nav a.on, .md-nav a:hover { color: rgba(245, 249, 252, 0.96); }
+.md-notch {
+  position: relative; width: 172px; height: 42px; margin: -17px 26px 0;
+  background: var(--black); border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 13px; letter-spacing: 0.12em; color: #eef1f4;
+}
+
+/* 中部：发丝线 + 两侧全大写粗体小字（参考站 GRAHAM MCDONNELL / CREATIVE DIRECTOR ▌ APPLE） */
+.md-hero-inner {
+  position: absolute; z-index: 5; left: 8%; right: 8%; top: 45%;
+  will-change: transform, opacity; transform-origin: 50% 50%;
+}
+.md-center-line {
+  position: relative; display: flex; justify-content: space-between; gap: 20px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(240, 246, 250, 0.92);
+}
+.md-center-line::before {
+  content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 1px;
+  background: rgba(226, 238, 248, 0.17);
+}
+.md-center-line span { position: relative; background: rgba(3, 12, 22, 0.35); padding: 0 16px; }
+.md-center-line i { font-style: normal; color: #93a9e6; letter-spacing: 0; }
+
+/* 底部：三行小字 + 实时时间（参考站 ©2025 LONDON, UK 上午11:55） */
+.md-hero-foot {
+  position: absolute; z-index: 5; bottom: 44px; left: 0; right: 0; text-align: center;
+  font-size: 10px; font-weight: 700; line-height: 1.95; letter-spacing: 0.17em;
+  text-transform: uppercase; color: rgba(232, 240, 247, 0.82);
+  will-change: transform, opacity;
+}
+.md-hero-foot p:nth-child(2) {
+  font-size: 9.5px; font-weight: 500; letter-spacing: 0.14em;
+  color: rgba(232, 240, 247, 0.5); text-transform: none;
+}
+.md-hero-foot small {
+  display: block; margin-top: 15px; font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.14em; color: rgba(232, 240, 247, 0.48); text-transform: none;
+  font-variant-numeric: tabular-nums;
+}
+.md-badge {
+  position: absolute; left: 32px; bottom: 28px; z-index: 3;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(233, 239, 245, 0.32);
+}
+@media (max-width: 760px) {
+  .md-nav { gap: 14px; }
+  .md-nav a { font-size: 9px; }
+  .md-notch { width: 92px; margin-left: 14px; margin-right: 14px; }
+  .md-center-line { font-size: 8.5px; letter-spacing: 0.12em; }
+  .md-hero-foot { font-size: 8.5px; letter-spacing: 0.1em; }
+}
+
+/* ---------- intro: line-by-line fade ---------- */
+#md-intro { min-height: 108vh; }
+.md-lines { max-width: 940px; margin: 12vh auto 0; padding-bottom: 16vh; }
+.md-line {
+  font-family: var(--serif); font-size: clamp(23px, 3.3vw, 45px); line-height: 1.52;
+  letter-spacing: -0.01em; color: var(--ink); will-change: opacity;
+}
+.md-line .num { font-family: var(--sans); font-size: 10px; letter-spacing: 0.2em; color: var(--red); vertical-align: super; margin-right: 14px; }
+
+/* ---------- zoom stage ---------- */
+#md-zoom {
+  min-height: 150vh; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; overflow: hidden;
+}
+.md-zoom-cap {
+  text-align: center; z-index: 3; position: relative;
+  margin-bottom: clamp(230px, 32vh, 360px);
+}
+.md-zoom-cap h2 { font-size: clamp(30px, 4.4vw, 62px); font-weight: 500; letter-spacing: -0.04em; margin-top: 14px; color: #eef1f4; }
+.md-zoom-cap p { font-family: var(--serif); font-style: italic; font-size: 14px; color: rgba(232, 233, 234, 0.5); margin-top: 12px; }
+.md-zoom-figure {
+  width: min(78vw, 1020px); aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden;
+  will-change: transform, opacity; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.md-zoom-figure img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- work cards: parallax + reveal ---------- */
+#md-works { padding-bottom: 12vh; }
+.md-cards { display: grid; gap: 26px; }
+.md-card {
+  position: relative; min-height: 500px; padding: 48px 52px; border-radius: 22px;
+  background: var(--navy-2); border: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden;
+  transition: border-color 0.35s, transform 0.35s;
+}
+.md-card:hover { border-color: rgba(255, 255, 255, 0.24); transform: translateY(-4px); }
+.md-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 80% 20%, rgba(45, 68, 100, 0.5), transparent 70%);
+  pointer-events: none;
+}
+.md-shot {
+  position: absolute; z-index: 1; right: -3%; top: 4%; width: 52%; height: 82%;
+  border-radius: 10px; overflow: hidden; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+  transform: rotate(-4deg); transition: transform 0.6s;
+}
+.md-card:hover .md-shot { transform: rotate(-1.5deg); }
+.md-shot img {
+  width: 100%; height: 124%; object-fit: cover; margin-top: -12%;
+  will-change: transform; transition: filter 0.5s;
+}
+.md-card:hover .md-shot img { filter: brightness(1.08); }
+.md-copy { position: relative; z-index: 2; max-width: 52%; will-change: transform, opacity; transform-origin: 0 100%; }
+.md-copy .k { color: var(--red); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; margin-bottom: 16px; }
+.md-copy h3 { font-size: clamp(34px, 4.8vw, 68px); line-height: 0.98; letter-spacing: -0.045em; font-weight: 700; text-transform: uppercase; color: #f2f3f4; }
+.md-copy .zh { font-size: 13px; color: rgba(232, 233, 234, 0.55); margin-top: 14px; }
+.md-copy .meta { display: flex; gap: 36px; flex-wrap: wrap; margin-top: 24px; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(232, 233, 234, 0.5); }
+.md-copy .meta b { display: block; color: rgba(232, 233, 234, 0.9); font-weight: 600; margin-top: 5px; }
+.md-ribbon { position: absolute; z-index: 3; right: 0; top: 18%; width: 8px; height: 90px; background: var(--yellow); border-radius: 4px 0 0 4px; }
+
+/* ---------- CTA ---------- */
+#md-cta { min-height: 62vh; display: flex; align-items: center; }
+#md-cta .sheet-inner { width: 100%; }
+#md-cta .cta-bar { margin-top: 0; will-change: transform, opacity; }
+
+/* ---------- HUD (样张专用监视器) ---------- */
+.md-hud {
+  position: fixed; right: 18px; bottom: 18px; z-index: 200; width: 216px;
+  background: rgba(7, 9, 13, 0.88); border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px; padding: 13px 14px 11px; color: #e8e9ea;
+  font-family: var(--sans); box-shadow: 0 16px 44px rgba(0, 0, 0, 0.4);
+}
+.md-hud-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-bottom: 11px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+.md-toggle {
+  background: transparent; border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 999px;
+  padding: 7px 12px; color: #e8e9ea; font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; cursor: pointer; transition: all 0.25s;
+}
+.md-toggle:hover { border-color: rgba(255, 255, 255, 0.6); }
+.md-toggle b { color: #8fd6a8; font-weight: 600; }
+.md-toggle[aria-pressed="false"] b { color: #e08b82; }
+.md-y { font-size: 10px; letter-spacing: 0.1em; color: rgba(232, 233, 234, 0.55); font-variant-numeric: tabular-nums; }
+.md-bars { padding-top: 10px; display: grid; gap: 7px; }
+.md-bar-row { display: grid; grid-template-columns: 62px 1fr 30px; gap: 7px; align-items: center; font-size: 10px; letter-spacing: 0.04em; color: rgba(232, 233, 234, 0.62); }
+.md-bar-row .track { height: 3px; background: rgba(255, 255, 255, 0.13); border-radius: 99px; overflow: hidden; }
+.md-bar-row .track i { display: block; height: 100%; width: 0%; background: #7fb2e5; border-radius: 99px; }
+.md-bar-row .v { text-align: right; color: rgba(232, 233, 234, 0.8); font-variant-numeric: tabular-nums; }
+.md-note { margin-top: 10px; padding-top: 9px; border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 9px; letter-spacing: 0.08em; color: rgba(232, 233, 234, 0.38); line-height: 1.6; }
+
+@media (max-width: 900px) {
+  .md-copy, .md-shot { max-width: 100%; width: 100%; position: relative; right: auto; top: auto; }
+  .md-card { min-height: auto; }
+  .md-shot { height: 280px; transform: none; margin-bottom: 22px; }
+  .md-hud { width: 184px; right: 10px; bottom: 10px; }
+}
+/* 关闭动效时，所有联动元素归位到静态最终状态，避免内容不可见 */
+body.motion-off [data-m] { opacity: 1 !important; transform: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .md-card, .md-shot, .md-shot img { transition: none !important; }
+}
